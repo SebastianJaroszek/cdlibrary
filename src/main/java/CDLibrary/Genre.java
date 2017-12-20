@@ -1,5 +1,5 @@
 package CDLibrary;
 
-public enum Gatunek {
+public enum Genre {
 
 }

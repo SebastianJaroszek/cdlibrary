@@ -1,6 +1,6 @@
 package CDLibrary;
 
-public class Biblioteka {
+public class Library {
 
     //dodawanie płyty,
     //usuwanie płyty,
