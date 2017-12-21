@@ -138,4 +138,37 @@ class LibraryTest {
         assertEquals(foundCDs, expected);
     }
 
+    /*@Test
+    void findTracksByTrackTitleTest(){
+        List<CD> CDs = new ArrayList<>();
+        CD cd1 = new CDBuilder()
+                .withTrack(new TrackBuilder().withTitle("qwer tyui").build())
+                .withTrack(new TrackBuilder().withTitle("opas dfgh").build())
+                .withTrack(new TrackBuilder().withTitle("jklz xcvb").build())
+                .build();
+        CD cd2 = new CDBuilder()
+                .withTrack(new TrackBuilder().withTitle("nmqw").build())
+                .withTrack(new TrackBuilder().withTitle("opas asdf").build())
+                .withTrack(new TrackBuilder().withTitle("asdf").build())
+                .build();
+        CD cd3 = new CDBuilder()
+                .withTrack(new TrackBuilder().withTitle("asdf").build())
+                .withTrack(new TrackBuilder().withTitle("asdf").build())
+                .withTrack(new TrackBuilder().withTitle("asdf").build())
+                .build();
+        CDs.add(cd1);
+        CDs.add(cd2);
+        CDs.add(cd3);
+
+        Library library = new Library(CDs);
+
+        List<CD> expected = new ArrayList<>();
+        expected.add(cd1);
+        expected.add(cd2);
+
+        List<CD> foundCDs = library.findTracksByTrackTitle("OPAS");
+
+        assertEquals(foundCDs, expected);
+    }*/
+
 }
