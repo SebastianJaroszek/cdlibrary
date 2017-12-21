@@ -60,6 +60,7 @@ public class CDTest {
         expected.add(Genre.RAP);
         expected.add(Genre.POP);
 
+        assertTrue(cd.getGenres().size() == 3);
         assertEquals(cd.getGenres(), expected);
     }
 

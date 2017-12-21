@@ -1,5 +1,12 @@
 package CDLibrary;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import java.util.List;
+
+@Data
+@AllArgsConstructor
 public class Library {
 
     //dodawanie płyty,
@@ -11,4 +18,14 @@ public class Library {
     //- szukaj po roku wydania
     //zapis danych na dysk - pliki tekstowe
     //odczyt z dysku - pliki tekstowe
+
+    List<CD> CDs;
+
+    public void addCD(CD cd) {
+        CDs.add(cd);
+    }
+
+    public void removeCD(CD cd) {
+        CDs.remove(cd);
+    }
 }
