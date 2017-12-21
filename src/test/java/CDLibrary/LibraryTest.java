@@ -38,13 +38,13 @@ class LibraryTest {
 
         Library library = new Library(CDs);
 
-        library.removeCD(newCD);
+        library.removeCD(1);
 
         assertTrue(!library.CDs.contains(newCD));
     }
 
     @Test
-    void searchWithCDTitleTest() {
+    void findByCDTitleTest() {
         List<CD> CDs = new ArrayList<>();
         CD cd1 = new CDBuilder()
                 .withTitle("SEQUEL")
@@ -69,7 +69,7 @@ class LibraryTest {
         expected.add(cd1);
         expected.add(cd3);
 
-        List<CD> foundCDs = library.searchWithCDTitle("sequel");
+        List<CD> foundCDs = library.findByCDTitle("sequel");
 
         assertEquals(foundCDs, expected);
     }
@@ -100,7 +100,40 @@ class LibraryTest {
         expected.add(cd2);
         expected.add(cd4);
 
-        List<CD> foundCDs = library.searchWithCDTitle("ŻyCiE");
+        List<CD> foundCDs = library.findByCDTitle("ŻyCiE");
+
+        assertEquals(foundCDs, expected);
+    }
+
+    @Test
+    void findCDsByTrackTitleTest() {
+        List<CD> CDs = new ArrayList<>();
+        CD cd1 = new CDBuilder()
+                .withTrack(new TrackBuilder().withTitle("qwer tyui").build())
+                .withTrack(new TrackBuilder().withTitle("opas dfgh").build())
+                .withTrack(new TrackBuilder().withTitle("jklz xcvb").build())
+                .build();
+        CD cd2 = new CDBuilder()
+                .withTrack(new TrackBuilder().withTitle("nmqw").build())
+                .withTrack(new TrackBuilder().withTitle("opas asdf").build())
+                .withTrack(new TrackBuilder().withTitle("asdf").build())
+                .build();
+        CD cd3 = new CDBuilder()
+                .withTrack(new TrackBuilder().withTitle("asdf").build())
+                .withTrack(new TrackBuilder().withTitle("asdf").build())
+                .withTrack(new TrackBuilder().withTitle("asdf").build())
+                .build();
+        CDs.add(cd1);
+        CDs.add(cd2);
+        CDs.add(cd3);
+
+        Library library = new Library(CDs);
+
+        List<CD> expected = new ArrayList<>();
+        expected.add(cd1);
+        expected.add(cd2);
+
+        List<CD> foundCDs = library.findCDsByTrackTitle("OPAS");
 
         assertEquals(foundCDs, expected);
     }

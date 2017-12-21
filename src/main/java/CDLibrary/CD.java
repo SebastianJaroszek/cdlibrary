@@ -50,4 +50,11 @@ public class CD {
                 .collect(Collectors.toSet());
     }
 
+    public List<Track> findTracksByTitle(String titleFragment) {
+        String lowerCaseTitleFragment = titleFragment.toLowerCase();
+        return tracks.stream()
+                .filter(track -> track.getTitle().toLowerCase().contains(lowerCaseTitleFragment))
+                .collect(Collectors.toList());
+    }
+
 }
