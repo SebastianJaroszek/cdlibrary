@@ -3,7 +3,9 @@ package CDLibrary;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -27,5 +29,20 @@ public class Library {
 
     public void removeCD(CD cd) {
         CDs.remove(cd);
+    }
+
+    public List<CD> searchWithCDTitle(String titleFragment){
+        /*List<CD> result = new ArrayList<>();
+        for (CD cd : CDs){
+            if (cd.getTitle().toLowerCase().contains(titleFragment.toLowerCase())){
+                result.add(cd);
+            }
+        }
+        return result;*/
+        return CDs.stream()
+                /*.map(cd -> cd.getTitle())
+                .map(title -> title.toLowerCase())*/
+                .filter(cd -> cd.getTitle().toLowerCase().contains(titleFragment.toLowerCase()))
+                .collect(Collectors.toList());
     }
 }
