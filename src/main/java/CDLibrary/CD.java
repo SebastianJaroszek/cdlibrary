@@ -57,4 +57,10 @@ public class CD {
                 .collect(Collectors.toList());
     }
 
+    public List<Track> findTracksByGenre(Genre genre) {
+        return tracks.stream()
+                .filter(track -> track.getGenre() == genre)
+                .collect(Collectors.toList());
+    }
+
 }

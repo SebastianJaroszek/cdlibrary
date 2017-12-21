@@ -93,22 +93,28 @@ public class Library {
     }
 
 
-    /*public List<Track> findTracksByGenre(Genre genre) {
-
-    }*/
-
-    /*
-
-
+    public List<Track> findTracksByGenre(Genre genre) {
+        return CDs.stream()
+                .flatMap(cd -> cd.findTracksByGenre(genre).stream())
+                .collect(Collectors.toList());
+    }
 
     public List<CD> findCDsByGenre(Genre genre) {
-
+        return CDs.stream()
+                .filter(
+                        cd -> cd.getTracks().stream()
+                                .anyMatch(track -> track.getGenre() == genre)
+                )
+                .collect(Collectors.toList());
     }
 
     public List<CD> findByReleaseYear(int releaseYear) {
-
+        return CDs.stream()
+                .filter(cd -> cd.getReleaseYear() == releaseYear)
+                .collect(Collectors.toList());
     }
 
+    /*
     public void saveToFile() {
 
     }
