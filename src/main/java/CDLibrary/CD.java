@@ -1,15 +1,53 @@
 package CDLibrary;
 
-import java.util.List;
+import lombok.Data;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+@Data
 public class CD {
 
     private String title;
-    private String performer;
-    private List<String> genres;
+    private String artist;
     private List<Track> tracks;
-    private int publicationDate;
+    private int releaseYear;
 
-    //czas łączny - wyliczany przez metodę
+    public CD(String title, String artist, List<Track> tracks, int releaseYear) {
+        this.title = title;
+        this.artist = artist;
+        this.tracks = tracks;
+        this.releaseYear = releaseYear;
+    }
+
+    //czas łączny - wyliczany przez metodę -- getTotalTime
+    public int getTotalTime() {
+        /*int totalTime = 0;
+        for (Track track : tracks) {
+            totalTime = totalTime + track.getLength();
+        }*/
+        //tracks.stream().reduce(0, );
+        return tracks.stream()
+                .mapToInt(track -> track.getLength())
+                .sum();
+        //return totalTime;
+    }
+
+    public void addTrack(Track track) {
+        tracks.add(track);
+    }
+
+    public Set<Genre> getGenres() {
+        /*Set<Genre> genres = new HashSet<>();
+        for (Track track : tracks) {
+            genres.add(track.getGenre());
+        }
+        return genres;*/
+        return tracks.stream()
+                .map(track -> track.getGenre())
+                .collect(Collectors.toSet());
+    }
 
 }
