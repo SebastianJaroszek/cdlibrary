@@ -166,6 +166,7 @@ public class Library {
                 //CD cd = loadCDFromFile(in);
                 //CDs.add(cd);
             }
+            in.close();
         } catch (FileNotFoundException e) {
             System.out.println("Problem z odczytem pliku " + FILENAME);
         }
