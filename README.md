@@ -9,16 +9,16 @@
 
 ## Obsługa przy pomocy menu tekstowego
 
-- dodaj nową płytę
-- usuń płytę
-- wyświetl wszystkie płyty
-- wyszukaj płyty po tytule płyty
-- wyszukaj utwory po tytule utworu
-- wyszukaj płyty po tytule utworu
-- wyszukaj płyty po gatunku
-- wyszukaj utwory po gatunku
-- wyszukaj płyty po roku wydania
-- wyjdź z programu
+1. dodaj nową płytę
+2. usuń płytę
+3. wyświetl wszystkie płyty
+4. wyszukaj płyty po tytule płyty
+5. wyszukaj utwory po tytule utworu
+6. wyszukaj płyty po tytule utworu
+7. wyszukaj płyty po gatunku
+8. wyszukaj utwory po gatunku
+9. wyszukaj płyty po roku wydania
+10. wyjdź z programu
 
 ## Format pliku z danymi
 
