@@ -2,16 +2,19 @@ package CDLibrary;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Library {
 
     //dodawanie płyty,
@@ -153,6 +156,55 @@ public class Library {
     }
 
     public void loadFromFile() {
-        File file = new File(FILENAME);
+        try {
+            File file = new File(FILENAME);
+            Scanner in = new Scanner(file);
+            CDs.clear();
+            Integer numberOfCDs = Integer.valueOf(in.nextLine());
+            for (int i = 0; i < numberOfCDs; i++) {
+                loadCDFromFile(in);
+                //CD cd = loadCDFromFile(in);
+                //CDs.add(cd);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Problem z odczytem pliku " + FILENAME);
+        }
     }
+
+    private void loadCDFromFile(Scanner in) {
+        String title = in.nextLine();
+        String artist = in.nextLine();
+        Integer numberOfTracks = Integer.valueOf(in.nextLine());
+        List<Track> tracks = new ArrayList<>();
+        for (int i = 0; i < numberOfTracks; i++) {
+            Track track = loadTrackFromFile(in);
+            tracks.add(track);
+        }
+        Integer releaseYear = Integer.valueOf(in.nextLine());
+        CD cd = new CDBuilder()
+                .withTitle(title)
+                .withArtist(artist)
+                .withTracks(tracks)
+                .withReleaseYear(releaseYear)
+                .build();
+        CDs.add(cd);
+    }
+
+    private Track loadTrackFromFile(Scanner in) {
+        String title = in.nextLine();
+        Integer length = Integer.valueOf(in.nextLine());
+        Genre genre = Genre.valueOf(in.nextLine());
+        String compositor = in.nextLine();
+        String textAuthor = in.nextLine();
+        Track track = new TrackBuilder()
+                .withTitle(title)
+                .withLength(length)
+                .withGenre(genre)
+                .withCompositor(compositor)
+                .withTextAuth(textAuthor)
+                .build();
+        return track;
+    }
+
+
 }

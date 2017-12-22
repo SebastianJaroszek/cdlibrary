@@ -139,6 +139,78 @@ class LibraryTest {
     }
 
     @Test
+    void findTracksByTrackTitleTest(){
+        List<CD> CDs = new ArrayList<>();
+        Track track1expected = new TrackBuilder().withTitle("opas dfgh").build();
+        Track track2expected = new TrackBuilder().withTitle("opas asdf").build();
+        CD cd1 = new CDBuilder()
+                .withTrack(new TrackBuilder().withTitle("qwer tyui").build())
+                .withTrack(track1expected)
+                .withTrack(new TrackBuilder().withTitle("jklz xcvb").build())
+                .build();
+        CD cd2 = new CDBuilder()
+                .withTrack(new TrackBuilder().withTitle("nmqw").build())
+                .withTrack(track2expected)
+                .withTrack(new TrackBuilder().withTitle("asdf").build())
+                .build();
+        CD cd3 = new CDBuilder()
+                .withTrack(new TrackBuilder().withTitle("asdf").build())
+                .withTrack(new TrackBuilder().withTitle("asdf").build())
+                .withTrack(new TrackBuilder().withTitle("asdf").build())
+                .build();
+        CDs.add(cd1);
+        CDs.add(cd2);
+        CDs.add(cd3);
+
+        Library library = new Library(CDs);
+
+        List<Track> expected = new ArrayList<>();
+        expected.add(track1expected);
+        expected.add(track2expected);
+
+        List<Track> foundTracks = library.findTracksByTrackTitle("OPAS");
+
+        assertEquals(foundTracks, expected);
+    }
+
+    @Test
+    void findTracksByGenreTest(){
+        List<CD> CDs = new ArrayList<>();
+        Track track1expected = new TrackBuilder().withGenre(Genre.CLASSIC).build();
+        Track track2expected = new TrackBuilder().withGenre(Genre.CLASSIC).build();
+        Track track3expected = new TrackBuilder().withGenre(Genre.CLASSIC).build();
+        CD cd1 = new CDBuilder()
+                .withTrack(new TrackBuilder().withGenre(Genre.JAZZ).build())
+                .withTrack(track1expected)
+                .withTrack(new TrackBuilder().withGenre(Genre.POP).build())
+                .build();
+        CD cd2 = new CDBuilder()
+                .withTrack(new TrackBuilder().withGenre(Genre.RAP).build())
+                .withTrack(track2expected)
+                .withTrack(track3expected)
+                .build();
+        CD cd3 = new CDBuilder()
+                .withTrack(new TrackBuilder().withGenre(Genre.REGGAE).build())
+                .withTrack(new TrackBuilder().withGenre(Genre.HEAVY_METAL).build())
+                .withTrack(new TrackBuilder().withGenre(Genre.ROCK).build())
+                .build();
+        CDs.add(cd1);
+        CDs.add(cd2);
+        CDs.add(cd3);
+
+        Library library = new Library(CDs);
+
+        List<Track> expected = new ArrayList<>();
+        expected.add(track1expected);
+        expected.add(track2expected);
+        expected.add(track3expected);
+
+        List<Track> foundTracks = library.findTracksByGenre(Genre.CLASSIC);
+
+        assertEquals(foundTracks, expected);
+    }
+
+    @Test
     void testSaveToFile() {
         CD cd1 = new CDBuilder()
                 .withTitle("titleCD1")
@@ -168,7 +240,7 @@ class LibraryTest {
                         .withTitle("titleTRACK1cd2")
                         .withTextAuth("text authorTRACK1cd2")
                         .withLength(2342)
-                        .withCompositor("compositorTRAC1cd2")
+                        .withCompositor("compositorTRACK1cd2")
                         .withGenre(Genre.JAZZ)
                         .build())
                 .withTrack(new TrackBuilder()
@@ -181,46 +253,20 @@ class LibraryTest {
                 .build();
 
         List<CD> CDs = new ArrayList<>();
-        CDs.add(cd1);
-        CDs.add(cd2);
 
-        Library library = new Library(CDs);
+        Library library = new Library();
+        library.addCD(cd1);
+        library.addCD(cd2);
 
         library.saveToFile();
 
 
     }
-    /*@Test
-    void findTracksByTrackTitleTest(){
-        List<CD> CDs = new ArrayList<>();
-        CD cd1 = new CDBuilder()
-                .withTrack(new TrackBuilder().withTitle("qwer tyui").build())
-                .withTrack(new TrackBuilder().withTitle("opas dfgh").build())
-                .withTrack(new TrackBuilder().withTitle("jklz xcvb").build())
-                .build();
-        CD cd2 = new CDBuilder()
-                .withTrack(new TrackBuilder().withTitle("nmqw").build())
-                .withTrack(new TrackBuilder().withTitle("opas asdf").build())
-                .withTrack(new TrackBuilder().withTitle("asdf").build())
-                .build();
-        CD cd3 = new CDBuilder()
-                .withTrack(new TrackBuilder().withTitle("asdf").build())
-                .withTrack(new TrackBuilder().withTitle("asdf").build())
-                .withTrack(new TrackBuilder().withTitle("asdf").build())
-                .build();
-        CDs.add(cd1);
-        CDs.add(cd2);
-        CDs.add(cd3);
 
-        Library library = new Library(CDs);
-
-        List<CD> expected = new ArrayList<>();
-        expected.add(cd1);
-        expected.add(cd2);
-
-        List<CD> foundCDs = library.findTracksByTrackTitle("OPAS");
-
-        assertEquals(foundCDs, expected);
-    }*/
+    @Test
+    void testLoadFromFile(){
+        Library library = new Library();
+        library.loadFromFile();
+    }
 
 }
