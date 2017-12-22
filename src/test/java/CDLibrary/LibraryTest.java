@@ -26,7 +26,7 @@ class LibraryTest {
         CD newCD = new CDBuilder().build();
         library.addCD(newCD);
 
-        assertTrue(library.CDs.get(0) == newCD);
+        assertTrue(library.getCDs().get(0) == newCD);
     }
 
     @Test
@@ -40,7 +40,7 @@ class LibraryTest {
 
         library.removeCD(1);
 
-        assertTrue(!library.CDs.contains(newCD));
+        assertTrue(!library.getCDs().contains(newCD));
     }
 
     @Test
@@ -138,6 +138,58 @@ class LibraryTest {
         assertEquals(foundCDs, expected);
     }
 
+    @Test
+    void testSaveToFile() {
+        CD cd1 = new CDBuilder()
+                .withTitle("titleCD1")
+                .withArtist("artistCD1")
+                .withReleaseYear(2017)
+                .withTrack(new TrackBuilder()
+                        .withTitle("titleTRACK1")
+                        .withTextAuth("text authorTRACK1")
+                        .withLength(2342)
+                        .withCompositor("compositorTRACK1")
+                        .withGenre(Genre.JAZZ)
+                        .build())
+                .withTrack(new TrackBuilder()
+                        .withTitle("titleTRACK2")
+                        .withTextAuth("text authorTRACK2")
+                        .withLength(532)
+                        .withCompositor("compositorTRACK2")
+                        .withGenre(Genre.POP)
+                        .build())
+                .build();
+
+        CD cd2 = new CDBuilder()
+                .withTitle("titleCD2")
+                .withArtist("artistCD2")
+                .withReleaseYear(2018)
+                .withTrack(new TrackBuilder()
+                        .withTitle("titleTRACK1cd2")
+                        .withTextAuth("text authorTRACK1cd2")
+                        .withLength(2342)
+                        .withCompositor("compositorTRAC1cd2")
+                        .withGenre(Genre.JAZZ)
+                        .build())
+                .withTrack(new TrackBuilder()
+                        .withTitle("titleTRACK2cd2")
+                        .withTextAuth("text authorTRACK2cd2")
+                        .withLength(532)
+                        .withCompositor("compositorTRACK2cd2")
+                        .withGenre(Genre.CLASSIC)
+                        .build())
+                .build();
+
+        List<CD> CDs = new ArrayList<>();
+        CDs.add(cd1);
+        CDs.add(cd2);
+
+        Library library = new Library(CDs);
+
+        library.saveToFile();
+
+
+    }
     /*@Test
     void findTracksByTrackTitleTest(){
         List<CD> CDs = new ArrayList<>();

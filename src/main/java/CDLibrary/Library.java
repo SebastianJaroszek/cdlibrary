@@ -3,6 +3,9 @@ package CDLibrary;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +24,9 @@ public class Library {
     //zapis danych na dysk - pliki tekstowe
     //odczyt z dysku - pliki tekstowe
 
-    List<CD> CDs = new ArrayList<>();
+    private List<CD> CDs = new ArrayList<>();
+
+    private final String FILENAME = "library.txt";
 
     public void addCD(CD cd) {
         CDs.add(cd);
@@ -114,12 +119,40 @@ public class Library {
                 .collect(Collectors.toList());
     }
 
-    /*
     public void saveToFile() {
+        try {
+            File file = new File(FILENAME);
+            PrintWriter printWriter = new PrintWriter(file);
+            printWriter.println(CDs.size()); //liczba płyt w bibliotece
+            for (CD cd : CDs) {
+                saveCDToFile(printWriter, cd);
+            }
+            printWriter.flush();
+            printWriter.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Problem z zapisem pliku " + FILENAME);
+        }
+    }
 
+    private void saveCDToFile(PrintWriter printWriter, CD cd) {
+        printWriter.println(cd.getTitle());
+        printWriter.println(cd.getArtist());
+        printWriter.println(cd.getTracks().size());
+        for (Track track : cd.getTracks()) {
+            saveTrackToFile(printWriter, track);
+        }
+        printWriter.println(cd.getReleaseYear());
+    }
+
+    private void saveTrackToFile(PrintWriter printWriter, Track track) {
+        printWriter.println(track.getTitle());
+        printWriter.println(track.getLength());
+        printWriter.println(track.getGenre());
+        printWriter.println(track.getCompositor());
+        printWriter.println(track.getTextAuth());
     }
 
     public void loadFromFile() {
-
-    }*/
+        File file = new File(FILENAME);
+    }
 }
