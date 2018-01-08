@@ -14,8 +14,7 @@ public class Track {
 
     @Override
     public String toString() {
-        return "\n"
-                + title + ", czas trwania: "
+        return title + ", czas trwania: "
                 + length + ", wykonawca: "
                 + compositor + ", autor tekstu: "
                 + textAuth + ", gatunek: "

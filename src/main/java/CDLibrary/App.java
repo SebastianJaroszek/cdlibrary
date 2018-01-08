@@ -80,9 +80,11 @@ public class App {
     private void showAllCDs() {
         List<CD> allCDs = library.getCDs();
         for (int i = 0; i < allCDs.size(); i++) {
-            System.out.println((i + 1) + ". " + allCDs.get(i).toFullString());
+            System.out.println((i + 1) + ". " + allCDs.get(i));
         }
-
+        System.out.println("Podaj numer płyty do wyświetlenia");
+        int index = readInt(library.getCDs().size()) - 1;
+        System.out.println(library.getCDs().get(index).toFullString());
         //allCDs.stream().forEach(cd -> System.out.println(cd.getTitle()));
     }
 

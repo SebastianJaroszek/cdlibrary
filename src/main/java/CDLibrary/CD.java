@@ -68,10 +68,24 @@ public class CD {
         return artist + ", " + title + ", " + releaseYear + ", tracks: " + tracks.size();
     }
 
-    public String toFullString(){
-        return "Artysta: " + artist + "\n"
+    public String toFullString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Artysta: " + artist);
+        stringBuilder.append(", ");
+        stringBuilder.append("Tytuł: " + title);
+        stringBuilder.append(", ");
+        stringBuilder.append("Rok wydania: " + releaseYear);
+        stringBuilder.append("\n");
+        for (int i = 0; i < tracks.size(); i++) {
+            stringBuilder.append(i + 1);
+            stringBuilder.append(". ");
+            stringBuilder.append(tracks.get(i));
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
+        /*return "Artysta: " + artist + "\n"
                 + "Tytuł: " + title + "\n"
                 + "Rok wydania: " + releaseYear + "\n"
-                + "Utwory: " + tracks;
+                + "Utwory: " + tracks;*/
     }
 }
