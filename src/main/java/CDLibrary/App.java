@@ -47,8 +47,8 @@ public class App {
         menu.add("wyszukaj płyty po gatunku", () -> findCDsByGenre());
         menu.add("wyszukaj utwory po gatunku", () -> findTracksByGenre());
         menu.add("wyszukaj płyty po roku wydania", () -> findCDsByReleaseYear());
-        menu.add("wyjdź z programu", () -> exitFromProgram());*/
-
+*/
+        menu.add("wyjdź z programu", () -> {});
 
         return menu;
     }
@@ -160,7 +160,11 @@ public class App {
         while (again) {
             mainMenu.showMessages();
             int option = readInt(mainMenu.size());
-            mainMenu.runAction(option);
+            if (option < mainMenu.size()) {
+                mainMenu.runAction(option);
+            } else {
+                again = false;
+            }
             /*showMainMenu();
             int option = readInt(10);
             switch (option) {
