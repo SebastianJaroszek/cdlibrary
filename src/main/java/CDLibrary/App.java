@@ -79,6 +79,11 @@ public class App {
 
     private void showAllCDs() {
         List<CD> allCDs = library.getCDs();
+        for (int i = 0; i < allCDs.size(); i++) {
+            System.out.println((i + 1) + ". " + allCDs.get(i)/*.getTitle()*/);
+        }
+
+        //allCDs.stream().forEach(cd -> System.out.println(cd.getTitle()));
     }
 
     private void deleteCD() {
@@ -91,9 +96,13 @@ public class App {
 
     private void mainMenu() {
         System.out.println("Witamy w programie");
+        Menu mainMenu = createMainMenu();
         boolean again = true;
         while (again) {
-            showMainMenu();
+            mainMenu.showMessages();
+            int option = readInt(mainMenu.size());
+            mainMenu.runAction(option);
+            /*showMainMenu();
             int option = readInt(10);
             switch (option) {
                 case 1:
@@ -114,7 +123,7 @@ public class App {
                 case 10:
                     again = false;
                     //return;
-            }
+            }*/
         }
     }
 
