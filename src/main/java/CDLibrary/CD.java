@@ -24,6 +24,12 @@ public class CD {
         this.releaseYear = releaseYear;
     }
 
+    public CD(String title, String artist, int releaseYear) {
+        this.title = title;
+        this.artist = artist;
+        this.releaseYear = releaseYear;
+    }
+
     //czas łączny - wyliczany przez metodę -- getTotalTime
     public int getTotalTime() {
         /*int totalTime = 0;

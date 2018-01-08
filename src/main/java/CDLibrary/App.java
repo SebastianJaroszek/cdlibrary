@@ -1,11 +1,15 @@
 package CDLibrary;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class App {
 
+    private static final int MAX_TRACK_COUNT = 99;
+    private static final int MAX_TRACK_TIME = 99 * 60;
     private Library library;
     private Scanner in;
 
@@ -93,7 +97,60 @@ public class App {
     }
 
     private void addNewCD() {
+        System.out.println("Podaj tytuł płyty:");
+        String title = in.nextLine();
+        System.out.println("Podaj artystę:");
+        String artist = in.nextLine();
+        System.out.println("Podaj rok wydania:");
+        int releaseYear = readInt(1950, LocalDate.now().getYear());
+        CD cd = new CD(title, artist, releaseYear);
+        addNewTracks(cd);
+        library.addCD(cd);
+    }
 
+    private void addNewTracks(CD cd) {
+        System.out.println("Podaj liczbę utworów:");
+        int trackCount = readInt(MAX_TRACK_COUNT);
+        for (int i = 0; i < trackCount; i++) {
+            addNewTrack(cd);
+        }
+    }
+
+    /**
+     * Dodaje jeden utwór do płyty
+     *
+     * @param cd
+     */
+    private void addNewTrack(CD cd) {
+        System.out.println("Podaj tytuł utworu:");
+        String title = in.nextLine();
+        System.out.println("Podaj długość utworu w sekundach:");
+        int length = readInt(MAX_TRACK_TIME);
+        System.out.println("Podaj wykonawcę utworu:");
+        String compositor = in.nextLine();
+        System.out.println("Podaj autora tekstu:");
+        String textAuth = in.nextLine();
+
+        Genre genre = readGenre();
+        Track track = new TrackBuilder()
+                .withTitle(title)
+                .withLength(length)
+                .withCompositor(compositor)
+                .withTextAuth(textAuth)
+                .withGenre(genre)
+                .build();
+        cd.addTrack(track);
+    }
+
+    private Genre readGenre() {
+        Genre[] genres = Genre.values();
+        System.out.println("Gatunki muzyki:");
+        for (int i = 0; i < genres.length; i++) {
+            System.out.println((i + 1) + ". " + genres[i].getDescription());
+        }
+        System.out.println("Wybierz gatunek utworu za pomocą numeru:");
+        int genreIndex = readInt(genres.length) - 1;
+        return genres[genreIndex];
     }
 
     private void mainMenu() {
@@ -129,17 +186,28 @@ public class App {
         }
     }
 
-    private int readInt(int max) {
+    /**
+     * Wymusza na użytkowniku podanie poprawnych danych
+     *
+     * @param min najmniejsza dozwolona liczba całkowita
+     * @param max największa dozwolona liczba całkowita
+     * @return liczba
+     */
+    private int readInt(int min, int max) {
         while (true) {
             try {
                 int menuPosition = Integer.parseInt(in.nextLine());
-                if (menuPosition >= 1 && menuPosition <= max) {
+                if (menuPosition >= min && menuPosition <= max) {
                     return menuPosition;
                 }
             } catch (NumberFormatException e) {
             }
-            System.out.println("Musisz podać liczbę od 1 do " + max + ".");
+            System.out.println("Musisz podać liczbę od " + min + " do " + max + ".");
         }
+    }
+
+    private int readInt(int max) {
+        return readInt(1, max);
     }
 
     private void showMainMenu() {
