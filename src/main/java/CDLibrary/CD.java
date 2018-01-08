@@ -63,4 +63,15 @@ public class CD {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public String toString() {
+        return artist + ", " + title + ", " + releaseYear + ", tracks: " + tracks.size();
+    }
+
+    public String toFullString(){
+        return "Artysta: " + artist + "\n"
+                + "Tytuł: " + title + "\n"
+                + "Rok wydania: " + releaseYear + "\n"
+                + "Utwory: " + tracks;
+    }
 }
