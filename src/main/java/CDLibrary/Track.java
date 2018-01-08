@@ -3,6 +3,8 @@ package CDLibrary;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import static CDLibrary.TimeUtils.format;
+
 @Data
 @AllArgsConstructor
 public class Track {
@@ -15,7 +17,7 @@ public class Track {
     @Override
     public String toString() {
         return title + ", czas trwania: "
-                + length + ", wykonawca: "
+                + format(length) + ", wykonawca: "
                 + compositor + ", autor tekstu: "
                 + textAuth + ", gatunek: "
                 + genre.getDescription();

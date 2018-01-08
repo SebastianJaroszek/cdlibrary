@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static CDLibrary.TimeUtils.format;
+
 @Data
 public class CD {
 
@@ -65,7 +67,7 @@ public class CD {
 
     @Override
     public String toString() {
-        return artist + ", " + title + ", " + releaseYear + ", tracks: " + tracks.size();
+        return artist + ", " + title + ", " + releaseYear + ", tracks: " + tracks.size() + ", time: " + format(getTotalTime());
     }
 
     public String toFullString() {
@@ -75,6 +77,8 @@ public class CD {
         stringBuilder.append("Tytuł: " + title);
         stringBuilder.append(", ");
         stringBuilder.append("Rok wydania: " + releaseYear);
+        stringBuilder.append(", ");
+        stringBuilder.append("Czas trwania: " + format(getTotalTime()));
         stringBuilder.append("\n");
         for (int i = 0; i < tracks.size(); i++) {
             stringBuilder.append(i + 1);
