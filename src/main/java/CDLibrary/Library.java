@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 public class Library {
 
     //dodawanie płyty,
@@ -30,6 +30,15 @@ public class Library {
     private List<CD> CDs = new ArrayList<>();
 
     private final String FILENAME = "library.txt";
+
+    public Library(){
+
+    }
+
+    public List<CD> getCDs(){
+        return CDs;
+    }
+
 
     public void addCD(CD cd) {
         CDs.add(cd);

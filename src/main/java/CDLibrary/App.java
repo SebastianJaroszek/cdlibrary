@@ -1,6 +1,7 @@
 package CDLibrary;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
@@ -15,9 +16,7 @@ public class App {
 
     public void start() {
         library.loadFromFile();
-
         mainMenu();
-
         library.saveToFile();
     }
 
@@ -31,6 +30,64 @@ public class App {
         8. wyszukaj utwory po gatunku
         9. wyszukaj płyty po roku wydania
         10. wyjdź z programu*/
+
+    private Menu createMainMenu() {
+        Menu menu = new Menu();
+
+        menu.add("dodaj nową płytę", () -> addNewCD());
+        menu.add("usuń płytę", () -> deleteCD());
+        menu.add("wyświetl wszystkie płyty", () -> showAllCDs());
+        menu.add("wyszukaj płyty po tytule płyty", () -> findCDsByCDTitle());
+        menu.add("wyszukaj utwory po tytule utworu", () -> findTracksByTrackTitle());
+        /*menu.add("wyszukaj płyty po tytule utworu", () -> findCDsByTrackTitle());
+        menu.add("wyszukaj płyty po gatunku", () -> findCDsByGenre());
+        menu.add("wyszukaj utwory po gatunku", () -> findTracksByGenre());
+        menu.add("wyszukaj płyty po roku wydania", () -> findCDsByReleaseYear());
+        menu.add("wyjdź z programu", () -> exitFromProgram());*/
+
+
+        return menu;
+    }
+
+    /*private void exitFromProgram() {
+
+    }
+
+    private void findCDsByReleaseYear() {
+
+    }
+
+    private void findTracksByGenre() {
+
+    }
+
+    private void findCDsByGenre() {
+
+    }
+
+    private void findCDsByTrackTitle() {
+
+    }*/
+
+    private void findTracksByTrackTitle() {
+
+    }
+
+    private void findCDsByCDTitle() {
+
+    }
+
+    private void showAllCDs() {
+        List<CD> allCDs = library.getCDs();
+    }
+
+    private void deleteCD() {
+
+    }
+
+    private void addNewCD() {
+
+    }
 
     private void mainMenu() {
         System.out.println("Witamy w programie");
