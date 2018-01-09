@@ -46,7 +46,7 @@ public class App {
                 .addMenuItem("wyświetl wszystkie płyty", () -> showAllCDs())
                 .addMenuItem("wyszukaj płyty po tytule płyty", () -> findCDsByCDTitle())
                 .addMenuItem("wyszukaj utwory po tytule utworu", () -> findTracksByTrackTitle())
-                .addMenuItem("wyjdź z programu", () -> {})
+                .addExitItem("wyjdź z programu")
                 .build();
         /*menu.add("wyszukaj płyty po tytule utworu", () -> findCDsByTrackTitle());
         menu.add("wyszukaj płyty po gatunku", () -> findCDsByGenre());
