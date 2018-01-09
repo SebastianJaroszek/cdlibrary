@@ -6,16 +6,19 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class App {
 
     private static final int MAX_TRACK_COUNT = 99;
     private static final int MAX_TRACK_TIME = 99 * 60;
     private Library library;
     private Scanner in;
+    private ScannerUtils scannerUtils;
 
     public App() {
         library = new Library();
         in = new Scanner(System.in);
+        scannerUtils = new ScannerUtils(in);
     }
 
     public void start() {
@@ -36,7 +39,7 @@ public class App {
         10. wyjdź z programu*/
 
     private Menu createMainMenu() {
-        Menu menu = new Menu();
+        Menu menu = new Menu(scannerUtils);
 
         menu.add("dodaj nową płytę", () -> addNewCD());
         menu.add("usuń płytę", () -> deleteCD());
@@ -48,7 +51,8 @@ public class App {
         menu.add("wyszukaj utwory po gatunku", () -> findTracksByGenre());
         menu.add("wyszukaj płyty po roku wydania", () -> findCDsByReleaseYear());
 */
-        menu.add("wyjdź z programu", () -> {});
+        menu.add("wyjdź z programu", () -> {
+        });
 
         return menu;
     }
@@ -87,7 +91,7 @@ public class App {
             System.out.println((i + 1) + ". " + allCDs.get(i));
         }
         System.out.println("Podaj numer płyty do wyświetlenia");
-        int index = readInt(library.getCDs().size()) - 1;
+        int index = scannerUtils.readInt(library.getCDs().size()) - 1;
         System.out.println(library.getCDs().get(index).toFullString());
         //allCDs.stream().forEach(cd -> System.out.println(cd.getTitle()));
     }
@@ -102,7 +106,7 @@ public class App {
         System.out.println("Podaj artystę:");
         String artist = in.nextLine();
         System.out.println("Podaj rok wydania:");
-        int releaseYear = readInt(1950, LocalDate.now().getYear());
+        int releaseYear = scannerUtils.readInt(1950, LocalDate.now().getYear());
         CD cd = new CD(title, artist, releaseYear);
         addNewTracks(cd);
         library.addCD(cd);
@@ -110,7 +114,7 @@ public class App {
 
     private void addNewTracks(CD cd) {
         System.out.println("Podaj liczbę utworów:");
-        int trackCount = readInt(MAX_TRACK_COUNT);
+        int trackCount = scannerUtils.readInt(MAX_TRACK_COUNT);
         for (int i = 0; i < trackCount; i++) {
             addNewTrack(cd);
         }
@@ -125,7 +129,7 @@ public class App {
         System.out.println("Podaj tytuł utworu:");
         String title = in.nextLine();
         System.out.println("Podaj długość utworu w sekundach:");
-        int length = readInt(MAX_TRACK_TIME);
+        int length = scannerUtils.readInt(MAX_TRACK_TIME);
         System.out.println("Podaj wykonawcę utworu:");
         String compositor = in.nextLine();
         System.out.println("Podaj autora tekstu:");
@@ -149,69 +153,14 @@ public class App {
             System.out.println((i + 1) + ". " + genres[i].getDescription());
         }
         System.out.println("Wybierz gatunek utworu za pomocą numeru:");
-        int genreIndex = readInt(genres.length) - 1;
+        int genreIndex = scannerUtils.readInt(genres.length) - 1;
         return genres[genreIndex];
     }
 
     private void mainMenu() {
         System.out.println("Witamy w programie");
         Menu mainMenu = createMainMenu();
-        boolean again = true;
-        while (again) {
-            mainMenu.showMessages();
-            int option = readInt(mainMenu.size());
-            if (option < mainMenu.size()) {
-                mainMenu.runAction(option);
-            } else {
-                again = false;
-            }
-            /*showMainMenu();
-            int option = readInt(10);
-            switch (option) {
-                case 1:
-                    //addNewCD();
-                    break;
-                case 2:
-                    //deleteCD();
-                    break;
-                case 3:
-                    //showAllCDs();
-                    break;
-                case 4:
-                    //findCDsByCDTitle();
-                    break;
-                case 5:
-                    //findTracksByTrackTitle();
-                    break;
-                case 10:
-                    again = false;
-                    //return;
-            }*/
-        }
-    }
-
-    /**
-     * Wymusza na użytkowniku podanie poprawnych danych
-     *
-     * @param min najmniejsza dozwolona liczba całkowita
-     * @param max największa dozwolona liczba całkowita
-     * @return liczba
-     */
-    private int readInt(int min, int max) {
-        while (true) {
-            try {
-                int menuPosition = Integer.parseInt(in.nextLine());
-                if (menuPosition >= min && menuPosition <= max) {
-                    return menuPosition;
-                }
-            } catch (NumberFormatException e) {
-            }
-            System.out.println("Musisz podać liczbę od " + min + " do " + max + ".");
-        }
-    }
-
-    private int readInt(int max) {
-        return readInt(1, max);
+        mainMenu.handleMenu();
     }
 
     private void showMainMenu() {
