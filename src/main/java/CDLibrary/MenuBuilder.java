@@ -7,8 +7,10 @@ public class MenuBuilder {
 
     private List<MenuItem> menuItems;
     private ScannerUtils scannerUtils;
+    private boolean exitItemExsist;
 
     public MenuBuilder(){
+        this.exitItemExsist = false;
         this.menuItems = new ArrayList<>();
     }
 
@@ -18,6 +20,9 @@ public class MenuBuilder {
     }
 
     public MenuBuilder addMenuItem(String message, Runnable action){
+        if (exitItemExsist){
+            throw new IllegalStateException("Metoda addMenuItem() może być wywołana tylko przed addExitItem().");
+        }
         this.menuItems.add(new MenuItem(message, action));
         return this;
     }
@@ -29,7 +34,14 @@ public class MenuBuilder {
      * @return
      */
     public MenuBuilder addExitItem(String exitMessage){
+        if (menuItems.isEmpty()){
+            throw new IllegalStateException("Najpierw należy użyć metody addMenuItem().");
+        }
+        if (exitItemExsist){
+            throw new IllegalStateException("Metoda addExitItem() może być wywołana tylko raz.");
+        }
         this.menuItems.add(new MenuItem(exitMessage, () -> {}));
+        this.exitItemExsist = true;
         return this;
     }
 
