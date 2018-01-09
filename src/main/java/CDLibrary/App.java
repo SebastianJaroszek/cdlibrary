@@ -39,20 +39,20 @@ public class App {
         10. wyjdź z programu*/
 
     private Menu createMainMenu() {
-        Menu menu = new Menu(scannerUtils);
-
-        menu.add("dodaj nową płytę", () -> addNewCD());
-        menu.add("usuń płytę", () -> deleteCD());
-        menu.add("wyświetl wszystkie płyty", () -> showAllCDs());
-        menu.add("wyszukaj płyty po tytule płyty", () -> findCDsByCDTitle());
-        menu.add("wyszukaj utwory po tytule utworu", () -> findTracksByTrackTitle());
+        Menu menu = new MenuBuilder()
+                .addScannerUtils(scannerUtils)
+                .addMenuItem("dodaj nową płytę", () -> addNewCD())
+                .addMenuItem("usuń płytę", () -> deleteCD())
+                .addMenuItem("wyświetl wszystkie płyty", () -> showAllCDs())
+                .addMenuItem("wyszukaj płyty po tytule płyty", () -> findCDsByCDTitle())
+                .addMenuItem("wyszukaj utwory po tytule utworu", () -> findTracksByTrackTitle())
+                .addMenuItem("wyjdź z programu", () -> {})
+                .build();
         /*menu.add("wyszukaj płyty po tytule utworu", () -> findCDsByTrackTitle());
         menu.add("wyszukaj płyty po gatunku", () -> findCDsByGenre());
         menu.add("wyszukaj utwory po gatunku", () -> findTracksByGenre());
         menu.add("wyszukaj płyty po roku wydania", () -> findCDsByReleaseYear());
 */
-        menu.add("wyjdź z programu", () -> {
-        });
 
         return menu;
     }
@@ -179,6 +179,6 @@ public class App {
     public static void main(String[] args) {
         App app = new App();
         app.start();
-        System.out.println("komunikat");
+        System.out.println("Dziękujemy za skorzystanie z programu.");
     }
 }
